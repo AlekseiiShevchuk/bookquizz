@@ -25,6 +25,7 @@
                         <th>@lang('quickadmin.users.fields.name')</th>
                         <th>@lang('quickadmin.users.fields.email')</th>
                         <th>@lang('quickadmin.users.fields.role')</th>
+                        <th>@lang('quickadmin.users.fields.device-id')</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -40,6 +41,7 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->role->title or '' }}</td>
+                                <td>{{ $user->device_id }}</td>
                                 <td>
                                     @can('user_view')
                                     <a href="{{ route('admin.users.show',[$user->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.qa_view')</a>
@@ -61,7 +63,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="9">@lang('quickadmin.qa_no_entries_in_table')</td>
+                            <td colspan="10">@lang('quickadmin.qa_no_entries_in_table')</td>
                         </tr>
                     @endif
                 </tbody>

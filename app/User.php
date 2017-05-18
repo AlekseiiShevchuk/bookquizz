@@ -14,11 +14,12 @@ use Hash;
  * @property string $password
  * @property string $role
  * @property string $remember_token
+ * @property string $device_id
 */
 class User extends Authenticatable
 {
     use Notifiable;
-    protected $fillable = ['name', 'email', 'password', 'remember_token', 'role_id'];
+    protected $fillable = ['name', 'email', 'password', 'remember_token', 'device_id', 'role_id'];
     
     
     /**

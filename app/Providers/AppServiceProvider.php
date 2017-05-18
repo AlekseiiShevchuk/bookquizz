@@ -27,7 +27,12 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        
+        /**
+         * Added missing method for package to work
+         */
+        \Illuminate\Support\Collection::macro('lists', function ($a, $b = null) {
+            return collect($this->items)->pluck($a, $b);
+        });
 
     }
 }

@@ -58,6 +58,18 @@
                     @endif
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    {!! Form::label('device_id', 'Device id', ['class' => 'control-label']) !!}
+                    {!! Form::text('device_id', old('device_id'), ['class' => 'form-control', 'placeholder' => '']) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('device_id'))
+                        <p class="help-block">
+                            {{ $errors->first('device_id') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
             
         </div>
     </div>
