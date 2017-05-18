@@ -67,5 +67,124 @@ class AuthServiceProvider extends ServiceProvider
             return in_array($user->role_id, [1]);
         });
 
+        // Auth gates for: Books
+        Gate::define('book_access', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('book_create', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('book_edit', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('book_view', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('book_delete', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+
+        // Auth gates for: Interviews
+        Gate::define('interview_access', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('interview_create', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('interview_edit', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('interview_view', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('interview_delete', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+
+        // Auth gates for: Interview answers
+        Gate::define('interview_answer_access', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('interview_answer_create', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('interview_answer_edit', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('interview_answer_view', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('interview_answer_delete', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+
+        // Auth gates for: Tests
+        Gate::define('test_access', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('test_create', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('test_edit', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('test_view', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('test_delete', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+
+        // Auth gates for: Test answers
+        Gate::define('test_answer_access', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('test_answer_create', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('test_answer_edit', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('test_answer_view', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('test_answer_delete', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+
+        // Auth gates for: User test answers
+        Gate::define('user_test_answer_access', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('user_test_answer_create', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('user_test_answer_edit', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('user_test_answer_view', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('user_test_answer_delete', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+
+        // Auth gates for: User interview answers
+        Gate::define('user_interview_answer_access', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('user_interview_answer_create', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('user_interview_answer_edit', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('user_interview_answer_view', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('user_interview_answer_delete', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+
     }
 }
