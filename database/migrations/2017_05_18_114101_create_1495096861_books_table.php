@@ -15,7 +15,7 @@ class Create1495096861BooksTable extends Migration
         if(! Schema::hasTable('books')) {
             Schema::create('books', function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('book_code')->nullable();
+                $table->bigInteger('book_code')->nullable();
                 $table->string('author')->nullable();
                 $table->string('title')->nullable();
                 $table->text('description')->nullable();

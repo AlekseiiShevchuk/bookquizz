@@ -35,4 +35,8 @@ class Book extends Model implements HasMedia
     public function interview() {
         return $this->hasMany(Interview::class, 'book_id');
     }
+
+    public function test() {
+        return $this->hasMany(Interview::class, 'test_id');
+    }
 }
