@@ -59,14 +59,14 @@
             </li>
             @endcan
             
-            @can('possible_answer_access')
+{{--            @can('possible_answer_access')
             <li class="{{ $request->segment(2) == 'possible_answers' ? 'active' : '' }}">
                 <a href="{{ route('admin.possible_answers.index') }}">
                     <i class="fa fa-gears"></i>
                     <span class="title">@lang('quickadmin.possible-answers.title')</span>
                 </a>
             </li>
-            @endcan
+            @endcan--}}
             
             @can('user_answer_access')
             <li class="{{ $request->segment(2) == 'user_answers' ? 'active' : '' }}">

@@ -54,6 +54,7 @@
                             @endforeach</td>
                                 <td>
                                     @can('book_view')
+                                    <a href="{{ route('admin.quizzes.create') }}/?book_id={{$book->id}}" class="btn btn-xs btn-success">Add quiz for this book</a>
                                     <a href="{{ route('admin.books.show',[$book->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.qa_view')</a>
                                     @endcan
                                     @can('book_edit')

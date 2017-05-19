@@ -49,7 +49,7 @@
             <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('book_id', 'Book*', ['class' => 'control-label']) !!}
-                    {!! Form::select('book_id', $books, old('book_id'), ['class' => 'form-control select2', 'required' => '']) !!}
+                    {!! Form::select('book_id', $books, request()->get('book_id') ?? old('book_id'), ['class' => 'form-control select2', 'required' => '']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('book_id'))
                         <p class="help-block">
@@ -70,7 +70,8 @@
                 <thead>
                 <tr>
                     <th>@lang('quickadmin.possible-answers.fields.text')</th>
-                        
+                    <th>is it correct answer?</th>
+
                     <th>Actions</th>
                 </tr>
                 </thead>

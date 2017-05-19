@@ -71,7 +71,8 @@
                 <thead>
                 <tr>
                     <th>@lang('quickadmin.possible-answers.fields.text')</th>
-                        
+                    <th>is it correct answer?</th>
+
                     <th>Actions</th>
                 </tr>
                 </thead>
