@@ -12,8 +12,16 @@ class BookSeed extends Seeder
     public function run()
     {
         $items = [
-            
-            ['id' => 1, 'title' => 'Test book title', 'book_code' => 2324, 'author' => 'Aleksey Shevchuk', 'description' => 'test book description', 'front_cover' => '/tmp/php8D2B1V', 'back_cover' => '/tmp/phpSWzcMV',],
+
+            [
+                'id' => 1,
+                'title' => 'Test book title',
+                'book_code' => 2324,
+                'author' => 'Aleksey Shevchuk',
+                'description' => 'test book description',
+                'front_cover' => '1495115823-adic_logo.jpg',
+                'back_cover' => '1495115823-lorem_image.jpg',
+            ],
 
         ];
 
