@@ -27,7 +27,7 @@ class Test extends Model
     
     public function book()
     {
-        return $this->belongsTo(Book::class, 'book_id')->withTrashed();
+        return $this->belongsTo(Book::class, 'book_id');
     }
     
     public function testAnswer() {

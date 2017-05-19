@@ -13,6 +13,10 @@
                 <div class="col-md-6">
                     <table class="table table-bordered table-striped">
                         <tr>
+                            <th>@lang('quickadmin.books.fields.title')</th>
+                            <td>{{ $book->title }}</td>
+                        </tr>
+                        <tr>
                             <th>@lang('quickadmin.books.fields.book-code')</th>
                             <td>{{ $book->book_code }}</td>
                         </tr>
@@ -21,16 +25,20 @@
                             <td>{{ $book->author }}</td>
                         </tr>
                         <tr>
-                            <th>@lang('quickadmin.books.fields.title')</th>
-                            <td>{{ $book->title }}</td>
-                        </tr>
-                        <tr>
                             <th>@lang('quickadmin.books.fields.description')</th>
                             <td>{!! $book->description !!}</td>
                         </tr>
                         <tr>
-                            <th>@lang('quickadmin.books.fields.images')</th>
-                            <td> @foreach($book->getMedia('images') as $media)
+                            <th>@lang('quickadmin.books.fields.front-cover')</th>
+                            <td>@if($book->front_cover)<a href="{{ asset('uploads/' . $book->front_cover) }}" target="_blank"><img src="{{ asset('uploads/thumb/' . $book->front_cover) }}"/></a>@endif</td>
+                        </tr>
+                        <tr>
+                            <th>@lang('quickadmin.books.fields.back-cover')</th>
+                            <td>@if($book->back_cover)<a href="{{ asset('uploads/' . $book->back_cover) }}" target="_blank"><img src="{{ asset('uploads/thumb/' . $book->back_cover) }}"/></a>@endif</td>
+                        </tr>
+                        <tr>
+                            <th>@lang('quickadmin.books.fields.extra-images')</th>
+                            <td> @foreach($book->getMedia('extra_images') as $media)
                                 <p class="form-group">
                                     <a href="{{ $media->getUrl() }}" target="_blank">{{ $media->name }} ({{ $media->size }} KB)</a>
                                 </p>
@@ -41,42 +49,47 @@
             </div><!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
     
-<li role="presentation" class="active"><a href="#interviews" aria-controls="interviews" role="tab" data-toggle="tab">Interviews</a></li>
-<li role="presentation" class=""><a href="#tests" aria-controls="tests" role="tab" data-toggle="tab">Tests</a></li>
+<li role="presentation" class="active"><a href="#quizzes" aria-controls="quizzes" role="tab" data-toggle="tab">Quizzes</a></li>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
     
-<div role="tabpanel" class="tab-pane active" id="interviews">
-<table class="table table-bordered table-striped {{ count($interviews) > 0 ? 'datatable' : '' }}">
+<div role="tabpanel" class="tab-pane active" id="quizzes">
+<table class="table table-bordered table-striped {{ count($quizzes) > 0 ? 'datatable' : '' }}">
     <thead>
         <tr>
-            <th>@lang('quickadmin.interviews.fields.title')</th>
-                        <th>@lang('quickadmin.interviews.fields.description')</th>
+            <th>@lang('quickadmin.quizzes.fields.type')</th>
+                        <th>@lang('quickadmin.quizzes.fields.question')</th>
+                        <th>@lang('quickadmin.quizzes.fields.description')</th>
+                        <th>@lang('quickadmin.quizzes.fields.book')</th>
+                        <th>@lang('quickadmin.books.fields.book-code')</th>
                         <th>&nbsp;</th>
         </tr>
     </thead>
 
     <tbody>
-        @if (count($interviews) > 0)
-            @foreach ($interviews as $interview)
-                <tr data-entry-id="{{ $interview->id }}">
-                    <td>{{ $interview->title }}</td>
-                                <td>{!! $interview->description !!}</td>
+        @if (count($quizzes) > 0)
+            @foreach ($quizzes as $quiz)
+                <tr data-entry-id="{{ $quiz->id }}">
+                    <td>{{ $quiz->type }}</td>
+                                <td>{{ $quiz->question }}</td>
+                                <td>{!! $quiz->description !!}</td>
+                                <td>{{ $quiz->book->title or '' }}</td>
+<td>{{ isset($quiz->book) ? $quiz->book->book_code : '' }}</td>
                                 <td>
-                                    @can('interview_view')
-                                    <a href="{{ route('admin.interviews.show',[$interview->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.qa_view')</a>
+                                    @can('quiz_view')
+                                    <a href="{{ route('admin.quizzes.show',[$quiz->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.qa_view')</a>
                                     @endcan
-                                    @can('interview_edit')
-                                    <a href="{{ route('admin.interviews.edit',[$interview->id]) }}" class="btn btn-xs btn-info">@lang('quickadmin.qa_edit')</a>
+                                    @can('quiz_edit')
+                                    <a href="{{ route('admin.quizzes.edit',[$quiz->id]) }}" class="btn btn-xs btn-info">@lang('quickadmin.qa_edit')</a>
                                     @endcan
-                                    @can('interview_delete')
+                                    @can('quiz_delete')
                                     {!! Form::open(array(
                                         'style' => 'display: inline-block;',
                                         'method' => 'DELETE',
                                         'onsubmit' => "return confirm('".trans("quickadmin.qa_are_you_sure")."');",
-                                        'route' => ['admin.interviews.destroy', $interview->id])) !!}
+                                        'route' => ['admin.quizzes.destroy', $quiz->id])) !!}
                                     {!! Form::submit(trans('quickadmin.qa_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
                                     {!! Form::close() !!}
                                     @endcan
@@ -85,50 +98,7 @@
             @endforeach
         @else
             <tr>
-                <td colspan="7">@lang('quickadmin.qa_no_entries_in_table')</td>
-            </tr>
-        @endif
-    </tbody>
-</table>
-</div>
-<div role="tabpanel" class="tab-pane " id="tests">
-<table class="table table-bordered table-striped {{ count($tests) > 0 ? 'datatable' : '' }}">
-    <thead>
-        <tr>
-            <th>@lang('quickadmin.tests.fields.title')</th>
-                        <th>@lang('quickadmin.tests.fields.description')</th>
-                        <th>&nbsp;</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        @if (count($tests) > 0)
-            @foreach ($tests as $test)
-                <tr data-entry-id="{{ $test->id }}">
-                    <td>{{ $test->title }}</td>
-                                <td>{!! $test->description !!}</td>
-                                <td>
-                                    @can('test_view')
-                                    <a href="{{ route('admin.tests.show',[$test->id]) }}" class="btn btn-xs btn-primary">@lang('quickadmin.qa_view')</a>
-                                    @endcan
-                                    @can('test_edit')
-                                    <a href="{{ route('admin.tests.edit',[$test->id]) }}" class="btn btn-xs btn-info">@lang('quickadmin.qa_edit')</a>
-                                    @endcan
-                                    @can('test_delete')
-                                    {!! Form::open(array(
-                                        'style' => 'display: inline-block;',
-                                        'method' => 'DELETE',
-                                        'onsubmit' => "return confirm('".trans("quickadmin.qa_are_you_sure")."');",
-                                        'route' => ['admin.tests.destroy', $test->id])) !!}
-                                    {!! Form::submit(trans('quickadmin.qa_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
-                                    {!! Form::close() !!}
-                                    @endcan
-                                </td>
-                </tr>
-            @endforeach
-        @else
-            <tr>
-                <td colspan="7">@lang('quickadmin.qa_no_entries_in_table')</td>
+                <td colspan="8">@lang('quickadmin.qa_no_entries_in_table')</td>
             </tr>
         @endif
     </tbody>

@@ -24,6 +24,7 @@ class UpdateBooksRequest extends FormRequest
     {
         return [
             
+            'title' => 'required',
             'book_code' => 'required|unique:books,book_code,'.$this->route('book'),
         ];
     }

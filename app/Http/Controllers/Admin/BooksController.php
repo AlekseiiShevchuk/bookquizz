@@ -57,14 +57,8 @@ class BooksController extends Controller
         $request = $this->saveFiles($request);
         $book = Book::create($request->all());
 
-        foreach ($request->input('interviews', []) as $data) {
-            $book->interview()->create($data);
-        }
-        foreach ($request->input('tests', []) as $data) {
-            $book->test()->create($data);
-        }
 
-        foreach ($request->input('images_id', []) as $index => $id) {
+        foreach ($request->input('extra_images_id', []) as $index => $id) {
             $model          = config('laravel-medialibrary.media_model');
             $file           = $model::find($id);
             $file->model_id = $book->id;
@@ -107,50 +101,16 @@ class BooksController extends Controller
         $book = Book::findOrFail($id);
         $book->update($request->all());
 
-        $interviews           = $book->interview;
-        $currentInterviewData = [];
-        foreach ($request->input('interviews', []) as $index => $data) {
-            if (is_integer($index)) {
-                $book->interview()->create($data);
-            } else {
-                $id                          = explode('-', $index)[1];
-                $currentInterviewData[$id] = $data;
-            }
-        }
-        foreach ($interviews as $item) {
-            if (isset($currentInterviewData[$item->id])) {
-                $item->update($currentInterviewData[$item->id]);
-            } else {
-                $item->delete();
-            }
-        }
-        $tests           = $book->test;
-        $currentTestData = [];
-        foreach ($request->input('tests', []) as $index => $data) {
-            if (is_integer($index)) {
-                $book->test()->create($data);
-            } else {
-                $id                          = explode('-', $index)[1];
-                $currentTestData[$id] = $data;
-            }
-        }
-        foreach ($tests as $item) {
-            if (isset($currentTestData[$item->id])) {
-                $item->update($currentTestData[$item->id]);
-            } else {
-                $item->delete();
-            }
-        }
 
         $media = [];
-        foreach ($request->input('images_id', []) as $index => $id) {
+        foreach ($request->input('extra_images_id', []) as $index => $id) {
             $model          = config('laravel-medialibrary.media_model');
             $file           = $model::find($id);
             $file->model_id = $book->id;
             $file->save();
             $media[] = $file;
         }
-        $book->updateMedia($media, 'images');
+        $book->updateMedia($media, 'extra_images');
 
         return redirect()->route('admin.books.index');
     }
@@ -168,8 +128,7 @@ class BooksController extends Controller
             return abort(401);
         }
         $relations = [
-            'interviews' => \App\Interview::where('book_id', $id)->get(),
-            'tests' => \App\Test::where('book_id', $id)->get(),
+            'quizzes' => \App\Quiz::where('book_id', $id)->get(),
         ];
 
         $book = Book::findOrFail($id);

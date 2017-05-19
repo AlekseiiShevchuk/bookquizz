@@ -2,7 +2,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
 
@@ -10,17 +9,19 @@ use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
  * Class Book
  *
  * @package App
+ * @property string $title
  * @property integer $book_code
  * @property string $author
- * @property string $title
  * @property text $description
- * @property string $images
+ * @property string $front_cover
+ * @property string $back_cover
+ * @property string $extra_images
 */
 class Book extends Model implements HasMedia
 {
-    use SoftDeletes, HasMediaTrait;
+    use HasMediaTrait;
 
-    protected $fillable = ['book_code', 'author', 'title', 'description', 'images'];
+    protected $fillable = ['title', 'book_code', 'author', 'description', 'front_cover', 'back_cover', 'extra_images'];
     
 
     /**
@@ -32,11 +33,4 @@ class Book extends Model implements HasMedia
         $this->attributes['book_code'] = $input ? $input : null;
     }
     
-    public function interview() {
-        return $this->hasMany(Interview::class, 'book_id');
-    }
-
-    public function test() {
-        return $this->hasMany(Interview::class, 'test_id');
-    }
 }

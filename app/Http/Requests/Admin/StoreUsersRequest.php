@@ -27,6 +27,7 @@ class StoreUsersRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
             'role_id' => 'required',
+            'device_id' => 'required|unique:users,device_id,'.$this->route('user'),
         ];
     }
 }

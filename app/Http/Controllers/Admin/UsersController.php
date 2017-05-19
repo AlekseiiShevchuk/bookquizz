@@ -117,8 +117,7 @@ class UsersController extends Controller
         }
         $relations = [
             'roles' => \App\Role::get()->pluck('title', 'id')->prepend('Please select', ''),
-            'user_test_answers' => \App\UserTestAnswer::where('user_id', $id)->get(),
-            'user_interview_answers' => \App\UserInterviewAnswer::where('user_id', $id)->get(),
+            'user_answers' => \App\UserAnswer::where('user_id', $id)->get(),
         ];
 
         $user = User::findOrFail($id);

@@ -13,6 +13,18 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 form-group">
+                    {!! Form::label('title', 'Title*', ['class' => 'control-label']) !!}
+                    {!! Form::text('title', old('title'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('title'))
+                        <p class="help-block">
+                            {{ $errors->first('title') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
                     {!! Form::label('book_code', 'Book code*', ['class' => 'control-label']) !!}
                     {!! Form::number('book_code', old('book_code'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
                     <p class="help-block"></p>
@@ -37,18 +49,6 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('title', 'Title', ['class' => 'control-label']) !!}
-                    {!! Form::text('title', old('title'), ['class' => 'form-control', 'placeholder' => '']) !!}
-                    <p class="help-block"></p>
-                    @if($errors->has('title'))
-                        <p class="help-block">
-                            {{ $errors->first('title') }}
-                        </p>
-                    @endif
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 form-group">
                     {!! Form::label('description', 'Description', ['class' => 'control-label']) !!}
                     {!! Form::textarea('description', old('description'), ['class' => 'form-control ', 'placeholder' => '']) !!}
                     <p class="help-block"></p>
@@ -61,97 +61,71 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('images', 'Images*', ['class' => 'control-label']) !!}
-                    {!! Form::file('images[]', [
+                    @if ($book->front_cover)
+                        <a href="{{ asset('uploads/'.$book->front_cover) }}" target="_blank"><img src="{{ asset('uploads/thumb/'.$book->front_cover) }}"></a>
+                    @endif
+                    {!! Form::label('front_cover', 'Front cover', ['class' => 'control-label']) !!}
+                    {!! Form::file('front_cover', ['class' => 'form-control', 'style' => 'margin-top: 4px;']) !!}
+                    {!! Form::hidden('front_cover_max_size', 8) !!}
+                    {!! Form::hidden('front_cover_max_width', 4000) !!}
+                    {!! Form::hidden('front_cover_max_height', 4000) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('front_cover'))
+                        <p class="help-block">
+                            {{ $errors->first('front_cover') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    @if ($book->back_cover)
+                        <a href="{{ asset('uploads/'.$book->back_cover) }}" target="_blank"><img src="{{ asset('uploads/thumb/'.$book->back_cover) }}"></a>
+                    @endif
+                    {!! Form::label('back_cover', 'Back cover', ['class' => 'control-label']) !!}
+                    {!! Form::file('back_cover', ['class' => 'form-control', 'style' => 'margin-top: 4px;']) !!}
+                    {!! Form::hidden('back_cover_max_size', 8) !!}
+                    {!! Form::hidden('back_cover_max_width', 4000) !!}
+                    {!! Form::hidden('back_cover_max_height', 4000) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('back_cover'))
+                        <p class="help-block">
+                            {{ $errors->first('back_cover') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    {!! Form::label('extra_images', 'Extra images*', ['class' => 'control-label']) !!}
+                    {!! Form::file('extra_images[]', [
                         'multiple',
                         'class' => 'form-control file-upload',
                         'data-url' => route('admin.media.upload'),
-                        'data-bucket' => 'images',
-                        'data-filekey' => 'images',
+                        'data-bucket' => 'extra_images',
+                        'data-filekey' => 'extra_images',
                         ]) !!}
                     <p class="help-block"></p>
                     <div class="photo-block">
                         <div class="progress-bar form-group">&nbsp;</div>
                         <div class="files-list">
-                            @foreach($book->getMedia('images') as $media)
+                            @foreach($book->getMedia('extra_images') as $media)
                                 <p class="form-group">
                                     <a href="{{ $media->getUrl() }}" target="_blank">{{ $media->name }} ({{ $media->size }} KB)</a>
                                     <a href="#" class="btn btn-xs btn-danger remove-file">Remove</a>
-                                    <input type="hidden" name="images_id[]" value="{{ $media->id }}">
+                                    <input type="hidden" name="extra_images_id[]" value="{{ $media->id }}">
                                 </p>
                             @endforeach
                         </div>
                     </div>
-                    @if($errors->has('images'))
+                    @if($errors->has('extra_images'))
                         <p class="help-block">
-                            {{ $errors->first('images') }}
+                            {{ $errors->first('extra_images') }}
                         </p>
                     @endif
                 </div>
             </div>
             
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            Interviews
-        </div>
-        <div class="panel-body">
-            <table class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th>@lang('quickadmin.interviews.fields.title')</th>
-                        
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody id="interviews">
-                    @forelse(old('interviews', []) as $index => $data)
-                        @include('admin.books.interviews_row', [
-                            'index' => $index
-                        ])
-                    @empty
-                        @foreach($book->interview as $item)
-                            @include('admin.books.interviews_row', [
-                                'index' => 'id-' . $item->id,
-                                'field' => $item
-                            ])
-                        @endforeach
-                    @endforelse
-                </tbody>
-            </table>
-            <a href="#" class="btn btn-success pull-right add-new">@lang('quickadmin.qa_add_new')</a>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            Tests
-        </div>
-        <div class="panel-body">
-            <table class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th>@lang('quickadmin.tests.fields.title')</th>
-                        
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody id="tests">
-                    @forelse(old('tests', []) as $index => $data)
-                        @include('admin.books.tests_row', [
-                            'index' => $index
-                        ])
-                    @empty
-                        @foreach($book->test as $item)
-                            @include('admin.books.tests_row', [
-                                'index' => 'id-' . $item->id,
-                                'field' => $item
-                            ])
-                        @endforeach
-                    @endforelse
-                </tbody>
-            </table>
-            <a href="#" class="btn btn-success pull-right add-new">@lang('quickadmin.qa_add_new')</a>
         </div>
     </div>
 
@@ -162,35 +136,6 @@
 @section('javascript')
     @parent
 
-    <script type="text/html" id="interviews-template">
-        @include('admin.books.interviews_row', [
-            'index' => '_INDEX_'
-        ])
-    </script>
-
-    <script type="text/html" id="tests-template">
-        @include('admin.books.tests_row', [
-            'index' => '_INDEX_'
-        ])
-    </script>
-
-            <script>
-        $('.add-new').click(function () {
-            var tableBody = $(this).parent().find('tbody');
-            var template = $('#' + tableBody.attr('id') + '-template').html();
-            var lastIndex = parseInt(tableBody.find('tr').last().data('index'));
-            if (isNaN(lastIndex)) {
-                lastIndex = 0;
-            }
-            tableBody.append(template.replace(/_INDEX_/g, lastIndex + 1));
-            return false;
-        });
-        $(document).on('click', '.remove', function () {
-            var row = $(this).parentsUntil('tr').parent();
-            row.remove();
-            return false;
-        });
-        </script>
     <script src="{{ asset('quickadmin/plugins/fileUpload/js/jquery.iframe-transport.js') }}"></script>
     <script src="{{ asset('quickadmin/plugins/fileUpload/js/jquery.fileupload.js') }}"></script>
     <script>

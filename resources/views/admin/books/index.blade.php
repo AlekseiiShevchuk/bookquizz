@@ -22,11 +22,13 @@
                             <th style="text-align:center;"><input type="checkbox" id="select-all" /></th>
                         @endcan
 
+                        <th>@lang('quickadmin.books.fields.title')</th>
                         <th>@lang('quickadmin.books.fields.book-code')</th>
                         <th>@lang('quickadmin.books.fields.author')</th>
-                        <th>@lang('quickadmin.books.fields.title')</th>
                         <th>@lang('quickadmin.books.fields.description')</th>
-                        <th>@lang('quickadmin.books.fields.images')</th>
+                        <th>@lang('quickadmin.books.fields.front-cover')</th>
+                        <th>@lang('quickadmin.books.fields.back-cover')</th>
+                        <th>@lang('quickadmin.books.fields.extra-images')</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -39,11 +41,13 @@
                                     <td></td>
                                 @endcan
 
+                                <td>{{ $book->title }}</td>
                                 <td>{{ $book->book_code }}</td>
                                 <td>{{ $book->author }}</td>
-                                <td>{{ $book->title }}</td>
                                 <td>{!! $book->description !!}</td>
-                                <td> @foreach($book->getMedia('images') as $media)
+                                <td>@if($book->front_cover)<a href="{{ asset('uploads/' . $book->front_cover) }}" target="_blank"><img src="{{ asset('uploads/thumb/' . $book->front_cover) }}"/></a>@endif</td>
+                                <td>@if($book->back_cover)<a href="{{ asset('uploads/' . $book->back_cover) }}" target="_blank"><img src="{{ asset('uploads/thumb/' . $book->back_cover) }}"/></a>@endif</td>
+                                <td> @foreach($book->getMedia('extra_images') as $media)
                                 <p class="form-group">
                                     <a href="{{ $media->getUrl() }}" target="_blank">{{ $media->name }} ({{ $media->size }} KB)</a>
                                 </p>
@@ -69,7 +73,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="9">@lang('quickadmin.qa_no_entries_in_table')</td>
+                            <td colspan="11">@lang('quickadmin.qa_no_entries_in_table')</td>
                         </tr>
                     @endif
                 </tbody>

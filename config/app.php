@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Bookquizz Admin Panel v1',
+    'name' => 'Bookquizz Admin Panel v2',
 
     /*
     |--------------------------------------------------------------------------

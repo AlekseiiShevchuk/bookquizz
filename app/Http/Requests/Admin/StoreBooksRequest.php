@@ -23,6 +23,7 @@ class StoreBooksRequest extends FormRequest
     public function rules()
     {
         return [
+            'title' => 'required',
             'book_code' => 'required|unique:books,book_code,'.$this->route('book'),
         ];
     }

@@ -50,62 +50,32 @@
             </li>
             @endcan
             
-            @can('interview_access')
-            <li class="{{ $request->segment(2) == 'interviews' ? 'active' : '' }}">
-                <a href="{{ route('admin.interviews.index') }}">
+            @can('quiz_access')
+            <li class="{{ $request->segment(2) == 'quizzes' ? 'active' : '' }}">
+                <a href="{{ route('admin.quizzes.index') }}">
                     <i class="fa fa-gears"></i>
-                    <span class="title">@lang('quickadmin.interviews.title')</span>
+                    <span class="title">@lang('quickadmin.quizzes.title')</span>
                 </a>
             </li>
             @endcan
             
-            @can('interview_answer_access')
-            <li class="{{ $request->segment(2) == 'interview_answers' ? 'active' : '' }}">
-                <a href="{{ route('admin.interview_answers.index') }}">
+            @can('possible_answer_access')
+            <li class="{{ $request->segment(2) == 'possible_answers' ? 'active' : '' }}">
+                <a href="{{ route('admin.possible_answers.index') }}">
                     <i class="fa fa-gears"></i>
-                    <span class="title">@lang('quickadmin.interview-answers.title')</span>
+                    <span class="title">@lang('quickadmin.possible-answers.title')</span>
                 </a>
             </li>
             @endcan
             
-            @can('test_access')
-            <li class="{{ $request->segment(2) == 'tests' ? 'active' : '' }}">
-                <a href="{{ route('admin.tests.index') }}">
+            @can('user_answer_access')
+            <li class="{{ $request->segment(2) == 'user_answers' ? 'active' : '' }}">
+                <a href="{{ route('admin.user_answers.index') }}">
                     <i class="fa fa-gears"></i>
-                    <span class="title">@lang('quickadmin.tests.title')</span>
+                    <span class="title">@lang('quickadmin.user-answers.title')</span>
                 </a>
             </li>
             @endcan
-            
-            @can('test_answer_access')
-            <li class="{{ $request->segment(2) == 'test_answers' ? 'active' : '' }}">
-                <a href="{{ route('admin.test_answers.index') }}">
-                    <i class="fa fa-gears"></i>
-                    <span class="title">@lang('quickadmin.test-answers.title')</span>
-                </a>
-            </li>
-            @endcan
-            
-            @can('user_test_answer_access')
-            <li class="{{ $request->segment(2) == 'user_test_answers' ? 'active' : '' }}">
-                <a href="{{ route('admin.user_test_answers.index') }}">
-                    <i class="fa fa-gears"></i>
-                    <span class="title">@lang('quickadmin.user-test-answers.title')</span>
-                </a>
-            </li>
-            @endcan
-            
-            @can('user_interview_answer_access')
-            <li class="{{ $request->segment(2) == 'user_interview_answers' ? 'active' : '' }}">
-                <a href="{{ route('admin.user_interview_answers.index') }}">
-                    <i class="fa fa-gears"></i>
-                    <span class="title">@lang('quickadmin.user-interview-answers.title')</span>
-                </a>
-            </li>
-            @endcan
-            
-
-    
 
     
 
