@@ -25,7 +25,7 @@ class UpdateUserAnswersRequest extends FormRequest
         return [
             
             'user_id' => 'required',
-            'user_answer_id' => 'required',
+            'possible_answer_id' => 'required',
             'quiz_id' => 'required',
         ];
     }

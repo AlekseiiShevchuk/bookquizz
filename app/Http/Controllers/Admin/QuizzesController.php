@@ -59,7 +59,7 @@ class QuizzesController extends Controller
         $quiz = Quiz::create($request->all());
 
         foreach ($request->input('possible_answers', []) as $data) {
-            $quiz->possibleAnswer()->create($data);
+            $quiz->possibleAnswers()->create($data);
         }
 
 
@@ -103,11 +103,11 @@ class QuizzesController extends Controller
         $quiz = Quiz::findOrFail($id);
         $quiz->update($request->all());
 
-        $possibleAnswers           = $quiz->possibleAnswer;
+        $possibleAnswers           = $quiz->possibleAnswers;
         $currentPossibleAnswerData = [];
         foreach ($request->input('possible_answers', []) as $index => $data) {
             if (is_integer($index)) {
-                $quiz->possibleAnswer()->create($data);
+                $quiz->possibleAnswers()->create($data);
             } else {
                 $id                          = explode('-', $index)[1];
                 $currentPossibleAnswerData[$id] = $data;

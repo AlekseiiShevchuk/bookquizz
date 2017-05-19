@@ -13,37 +13,11 @@ class BooksController extends Controller
 
     public function index()
     {
-        return Book::all();
+        return Book::all()->load('quizzes.possibleAnswers');
     }
 
     public function show($id)
     {
-        return Book::findOrFail($id);
-    }
-
-    public function update(UpdateBooksRequest $request, $id)
-    {
-        $request = $this->saveFiles($request);
-        $book = Book::findOrFail($id);
-        $book->update($request->all());
-
-
-        return $book;
-    }
-
-    public function store(Admin\StoreBooksRequest $request)
-    {
-        $request = $this->saveFiles($request);
-        $book = Book::create($request->all());
-
-
-        return $book;
-    }
-
-    public function destroy($id)
-    {
-        $book = Book::findOrFail($id);
-        $book->delete();
-        return '';
+        return Book::whereBookCode($id)->first()->load('quizzes.possibleAnswers');
     }
 }

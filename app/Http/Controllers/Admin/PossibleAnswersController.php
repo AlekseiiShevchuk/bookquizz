@@ -117,7 +117,7 @@ class PossibleAnswersController extends Controller
         }
         $relations = [
             'quizzes' => \App\Quiz::get()->pluck('question', 'id')->prepend('Please select', ''),
-            'user_answers' => \App\UserAnswer::where('user_answer_id', $id)->get(),
+            'user_answers' => \App\UserAnswer::where('possible_answer_id', $id)->get(),
         ];
 
         $possible_answer = PossibleAnswer::findOrFail($id);

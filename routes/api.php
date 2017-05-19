@@ -4,10 +4,6 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
 
         Route::resource('books', 'BooksController');
 
-        Route::resource('quizzes', 'QuizzesController');
-
-        Route::resource('possible_answers', 'PossibleAnswersController');
-
-        Route::resource('user_answers', 'UserAnswersController');
+        Route::post('answer/{possibleAnswer}', 'UserAnswersController@postAnswer');
 
 });

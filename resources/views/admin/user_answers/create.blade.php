@@ -24,12 +24,12 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('user_answer_id', 'User answer*', ['class' => 'control-label']) !!}
-                    {!! Form::select('user_answer_id', $user_answers, old('user_answer_id'), ['class' => 'form-control select2', 'required' => '']) !!}
+                    {!! Form::label('possible_answer_id', 'User answer*', ['class' => 'control-label']) !!}
+                    {!! Form::select('possible_answer_id', $user_answers, old('possible_answer_id'), ['class' => 'form-control select2', 'required' => '']) !!}
                     <p class="help-block"></p>
-                    @if($errors->has('user_answer_id'))
+                    @if($errors->has('possible_answer_id'))
                         <p class="help-block">
-                            {{ $errors->first('user_answer_id') }}
+                            {{ $errors->first('possible_answer_id') }}
                         </p>
                     @endif
                 </div>

@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 */
 class UserAnswer extends Model
 {
-    protected $fillable = ['user_id', 'user_answer_id', 'quiz_id'];
+    protected $fillable = ['user_id', 'possible_answer_id', 'quiz_id'];
     
 
     /**
@@ -29,9 +29,9 @@ class UserAnswer extends Model
      * Set to null if empty
      * @param $input
      */
-    public function setUserAnswerIdAttribute($input)
+    public function setPossibleAnswerIdAttribute($input)
     {
-        $this->attributes['user_answer_id'] = $input ? $input : null;
+        $this->attributes['possible_answer_id'] = $input ? $input : null;
     }
 
     /**
@@ -50,7 +50,7 @@ class UserAnswer extends Model
     
     public function user_answer()
     {
-        return $this->belongsTo(PossibleAnswer::class, 'user_answer_id');
+        return $this->belongsTo(PossibleAnswer::class, 'possible_answer_id');
     }
     
     public function quiz()

@@ -81,7 +81,7 @@
                             'index' => $index
                         ])
                     @empty
-                        @foreach($quiz->possibleAnswer as $item)
+                        @foreach($quiz->possibleAnswers as $item)
                             @include('admin.quizzes.possible_answers_row', [
                                 'index' => 'id-' . $item->id,
                                 'field' => $item

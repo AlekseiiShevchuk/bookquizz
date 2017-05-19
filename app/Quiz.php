@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 class Quiz extends Model
 {
     protected $fillable = ['type', 'question', 'description', 'book_id'];
+    protected $hidden = ['created_at', 'updated_at'];
     
 
     public static $enum_type = ["test" => "Test", "interview" => "Interview"];
@@ -33,7 +34,7 @@ class Quiz extends Model
         return $this->belongsTo(Book::class, 'book_id');
     }
     
-    public function possibleAnswer() {
+    public function possibleAnswers() {
         return $this->hasMany(PossibleAnswer::class, 'quiz_id');
     }
 }

@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 class PossibleAnswer extends Model
 {
     protected $fillable = ['text', 'is_correct', 'quiz_id'];
+    protected $hidden = ['created_at', 'updated_at'];
     
 
     /**
